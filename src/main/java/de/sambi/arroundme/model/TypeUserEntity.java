@@ -1,0 +1,50 @@
+package de.sambi.arroundme.model;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity//REQUIRED
+@Table (name="typeUser")//OPTIONELLE
+public class TypeUserEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2740538633954244210L;
+	
+	@Id
+	@SequenceGenerator(name="seq_id_type", sequenceName="seq_id_type",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_id_type")	
+	private long id;
+	@Column(name = "firstName")
+	private String typeName;
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+	
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="typeUser")
+    private Set<UserEntity> users;
+	
+	
+
+}
